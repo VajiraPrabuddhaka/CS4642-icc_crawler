@@ -22,10 +22,10 @@ class icc_spider(BaseSpider):
 
         hxs = HtmlXPathSelector(response)
         self.log("Response URL " + response.url)
-        # if re.match(r'http://www.greenhills.co.uk/\d{4}/\d{2}/\d{2}', response.url):
         if re.match(r'https://www.icc-cricket.com/news/\d{6}', response.url):
             yield {
-                    'title': hxs.select('//title/text()').extract(),
+                    'title': hxs.select('//*[@id="main-content"]/div/div[2]/article/div[2]/header/h1/text()').extract_first(),
+                    'content': hxs.select('//*[@id="main-content"]/div/div[2]/article/div[2]/div[2]').extract_first(),
                     'url': response.url,
                 }
 
